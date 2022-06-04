@@ -1,0 +1,43 @@
+{
+  "name": "django_nextjs",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"next dev ./frontend\" \"npm run format:watch\" \"npm run python:watch\"",
+    "build": "next build ",
+    "start": "next start",
+    "lint": "next lint",
+    "export": "next build ./frontend && next export ./frontend",
+    "format:watch": "onchange \"**/*.{ts,js,tsx,jsx}\" -- prettier --write {{changed}}",
+    "mkdir:static": "mkdir -p ./staticfiles/_next/static ./templates/_next",
+    "remove:cache:pre": "rm -rf ./.next ./.out ./templates/_next ./staticfiles/_next static/ ./frontend/.out/",
+    "remove:cache:post": "rm -rf ./.next ./.out",
+    "copy:html": "rsync -av --progress ./.out/ ./templates/_next --exclude _next",
+    "copy:static": "cp -r ./.out/_next/static/ ./staticfiles/_next/",
+    "python:static": "python ./tirr_ml/scripts/add_static.py --dir='./templates/_next/'",
+    "python:collect": "python manage.py collectstatic --noinput",
+    "python:watch": "python manage.py runserver localhost:8000",
+    "production": "npm run remove:cache:pre && npm run mkdir:static && next build ./frontend && next export ./frontend -o ./.out && npm run copy:html && npm run copy:static && npm run python:static && npm run remove:cache:post",
+    "deploy": "npm run production && npm run python:collect"
+  },
+  "dependencies": {
+    "next": "12.1.6",
+    "react": "18.1.0",
+    "react-dom": "18.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "17.0.35",
+    "@types/react": "18.0.9",
+    "@types/react-dom": "18.0.5",
+    "autoprefixer": "^10.4.7",
+    "concurrently": "^7.2.1",
+    "copyfiles": "^2.4.1",
+    "eslint": "8.16.0",
+    "eslint-config-next": "12.1.6",
+    "onchange": "^7.1.0",
+    "postcss": "^8.4.14",
+    "prettier": "^2.6.2",
+    "tailwindcss": "^3.0.24",
+    "typescript": "4.7.2"
+  }
+}

@@ -1,0 +1,51 @@
+.gitignore
+content/
+public
+tirr_ml/
+templates/
+staticfiles/
+bin/
+lib/
+*.cfg
+*.txt
+*.md
+*.lock
+*.py
+*.toml
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+junk.txt 
+# testing
+/coverage
+
+# next.js
+/.next
+/out
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+Thumbs.db
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# dotenv local files
+.env*.local
+
+# local folder
+local
+
+# vercel
+.vercel
